@@ -28,14 +28,14 @@ namespace Parrot
 		[DllImport("parrot")]
 		private static extern int Parrot_api_string_free_exported_ascii(IntPtr interp, IntPtr str);
 
-		unsafe private string GetRawString()
+		private string GetRawString()
 		{
 			IntPtr temp = IntPtr.Zero;
 			int result = Parrot_api_string_export_ascii(this.Parrot.RawPointer, this.RawPointer, out temp);
 			if (result != 1)
 				this.Parrot.GetErrorResult();
 			this.raw = temp;
-			return new string((char*)temp);
+			return Marshal.PtrToStringAnsi(temp);
 		}
 
 		public override string ToString()

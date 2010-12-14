@@ -44,6 +44,7 @@
     <Compile Include="src\IParrotPointer.cs" />
     <Compile Include="src\Parrot.cs" />
     <Compile Include="src\ParrotException.cs" />
+    <Compile Include="src\ParrotExtensionMethods.cs" />
     <Compile Include="src\ParrotPointer.cs" />
     <Compile Include="src\Parrot_PMC.cs" />
     <Compile Include="src\Parrot_String.cs" />
