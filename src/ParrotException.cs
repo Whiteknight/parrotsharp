@@ -1,40 +1,64 @@
 using System;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
-namespace Parrot {
-    public class ParrotException : Exception {
+namespace Parrot
+{
+    public class ParrotException : Exception
+	{
+		private Parrot Parrot;
         private Parrot_PMC raw_exception;
         private string msg;
+		private string backtrace;
 
-        public ParrotException() {
-            this.raw_exception = null;
-            this.msg = null;
-        }
-
-        public ParrotException(string msg) : this() {
+        public ParrotException(Parrot parrot, string msg) {
             this.msg = msg;
-            // TODO: Capture the current C# backtrace
+			this.Parrot = parrot;
         }
 
-        public ParrotException(Parrot_PMC *exception) {
+        public ParrotException(Parrot parrot, Parrot_PMC exception) {
             this.raw_exception = exception;
-            int result = Parrot_api_get_exception_backtrace(exception.Raw
-            // TODO: Get the message from the exception and put it into msg
+			this.msg = exception.ToString();
+			this.Parrot = parrot;
+			// TODO: Verify that this is an exception PMC
         }
 
-        public ParrotException(Parrot_String msg) {
-            // TODO: Get the string out of msg
+        public ParrotException(Parrot parrot, Parrot_String msg) {
+			this.msg = msg.ToString();
+			this.Parrot = parrot;
             // TODO: Capture the current C# backtrace
         }
+
+		public override string Message { get { return this.msg; } }
 
         [DllImport("parrot")]
-        private static int Parrot_api_get_exception_backtrace(
-            IntPtr interp_pmc, IntPtr exception, out IntPtr Parrot_String bt);
+        private static int Parrot_api_get_exception_backtrace(IntPtr interp_pmc, IntPtr exception, out IntPtr bt);
 
-        private string backtrace;
+		public override string  StackTrace
+		{
+			get 
+			{ 
+				if (this.backtrace != null)
+					return this.backtrace;
+				if (this.raw_exception != null) {
+					IntPtr bt_raw = IntPtr.Zero;
+					int result = Parrot_api_get_exception_backtrace(this.Parrot.RawPointer, this.raw_exception.RawPointer, out bt_raw);
+					if (result != 1)
+					{
+						this.backtrace = "";
+						throw new Exception("Parrot: Catastrophic error. Could not get backtrace.", this);
+					}
+					Parrot_String bt = new Parrot_String(this.Parrot, bt_raw);
+					this.backtrace = bt.ToString();
+					return this.backtrace;
+				}
+				else {
+					this.backtrace = base.StackTrace;
+				}
+				return this.backtrace;
+			}
+		}
 
-        public string GetBacktrace() {
-            if (this.backtrace != null)
-                return this.backtrace;
 
 
 
