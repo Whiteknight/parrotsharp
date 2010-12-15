@@ -2,7 +2,7 @@ using System;
 
 namespace Parrot
 {
-    abstract class ParrotPointer
+    public abstract class ParrotPointer
 	{
         private readonly IntPtr ptr = IntPtr.Zero;
 		private readonly Parrot parrot;

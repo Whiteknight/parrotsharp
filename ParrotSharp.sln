@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParrotSharp", "ParrotSharp.csproj", "{AAED9261-C134-4905-88E6-197FBEA661F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParrotTest", "ParrotTest\ParrotTest.csproj", "{D5EE4663-DB60-4B96-825A-D05842A9F8D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,13 @@ Global
 		{AAED9261-C134-4905-88E6-197FBEA661F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAED9261-C134-4905-88E6-197FBEA661F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAED9261-C134-4905-88E6-197FBEA661F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5EE4663-DB60-4B96-825A-D05842A9F8D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5EE4663-DB60-4B96-825A-D05842A9F8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5EE4663-DB60-4B96-825A-D05842A9F8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5EE4663-DB60-4B96-825A-D05842A9F8D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = ParrotSharp.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

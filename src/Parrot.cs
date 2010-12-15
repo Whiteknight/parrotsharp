@@ -11,22 +11,22 @@ namespace Parrot
 		# region IParrotPointer
 
 		public IntPtr RawPointer { get { return this.Interp.RawPointer; } }
-		public Parrot IParrotPointer.Parrot { get { return this; } }
+		Parrot IParrotPointer.Parrot { get { return this; } }
 
 		# endregion
 
 		# region Constructor
 
 		[DllImport("parrot")]
-        private static extern int Parrot_api_make_interpreter(IntPtr parent,
-            IntPtr args, ref IntPtr interp);
+        private static extern int Parrot_api_make_interpreter(IntPtr parent, int flags,
+            IntPtr args, out IntPtr interp);
 
 		[DllImport("parrot", CharSet=CharSet.Ansi)]
 		private static extern int Parrot_api_set_executable_name(IntPtr interp, string exename);
 
         public Parrot() {
-            IntPtr interp_raw = new IntPtr();
-            int result = Parrot_api_make_interpreter(IntPtr.Zero, IntPtr.Zero, ref interp_raw);
+            IntPtr interp_raw;
+            int result = Parrot_api_make_interpreter(IntPtr.Zero, 0, IntPtr.Zero, out interp_raw);
             if (result != 1)
                 this.GetErrorResult();
             this.Interp = new Parrot_PMC(this, interp_raw);
@@ -38,8 +38,41 @@ namespace Parrot
 			if (result != 1)
 				this.GetErrorResult();
 		}
+		
+		[DllImport("parrot")]
+		private static extern int Parrot_api_destroy_interpreter(IntPtr interp);
+		
+		~Parrot()
+		{
+			int result = Parrot_api_destroy_interpreter(this.RawPointer);
+			if (result != 1)
+				this.GetErrorResult();
+			this.Interp = null;
+		}		
 
         # endregion
+		
+		# region Null
+		
+		[DllImport("parrot")]
+		private static extern int Parrot_api_pmc_null(IntPtr interp, out IntPtr pmcnull);
+		
+		private Parrot_PMC pmcnull;
+		
+		public Parrot_PMC PmcNull {
+			get {
+				if (this.pmcnull != null)
+					return this.pmcnull;
+				IntPtr pmcnull_raw = IntPtr.Zero;
+				int result = Parrot_api_pmc_null(this.RawPointer, out pmcnull_raw);
+				if (result != 1)
+					this.GetErrorResult();
+				this.pmcnull = new Parrot_PMC(this, pmcnull_raw);
+				return this.pmcnull;
+			}
+		}		
+		
+		# endregion
 
 		# region Error Handling
 
@@ -63,8 +96,20 @@ namespace Parrot
 
 		# endregion
 
-		# region Run bytecode
+		# region Bytecode
 
+		[DllImport("parrot", CharSet=CharSet.Ansi)]
+		private static extern int Parrot_api_load_bytecode_file(IntPtr interp, string filename, out IntPtr pbc);
+		
+		public Parrot_PMC LoadBytecodeFile(string filename)
+		{
+			IntPtr pbc = IntPtr.Zero;
+			int result = Parrot_api_load_bytecode_file(this.RawPointer, filename, out pbc);
+			if (result != 1)
+				this.GetErrorResult();
+			return new Parrot_PMC(this, pbc);
+		}		
+		
 		[DllImport("parrot")]
 		private static extern int Parrot_api_run_bytecode(IntPtr interp, IntPtr bc_pmc, IntPtr arg_pmc);
 

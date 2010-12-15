@@ -18,6 +18,8 @@ namespace Parrot
 				argv[i] = Marshal.StringToHGlobalAnsi(args[i]);
 			IntPtr pmc = IntPtr.Zero;
 			int result = Parrot_api_build_argv_array(parrot.RawPointer, args.Length, argv, out pmc);
+			if (result != 1)
+				parrot.GetErrorResult();
 			return new Parrot_PMC(parrot, pmc);
 		}
 	}
