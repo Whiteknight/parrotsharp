@@ -6,13 +6,22 @@ namespace Parrot
     public class Parrot_String : ParrotPointer
 	{
 		private string strcache;
-		private IntPtr raw;
+		private IntPtr raw; // a char* pointer to the internal buffer. Must be freed
 
         public Parrot_String(Parrot parrot, IntPtr ptr) : base(parrot, ptr)
 		{
 			this.raw = IntPtr.Zero;
 		}
-
+		
+		public Parrot_String(Parrot parrot, string str) : base(parrot)
+		{
+			IntPtr pstring = IntPtr.Zero;
+			int result = Parrot_api_string_import_ascii(this.Parrot.RawPointer, str, out pstring);
+			if (result != 1)
+				parrot.GetErrorResult();
+			this.ptr = pstring;
+		}
+		
 		~Parrot_String()
 		{
 			if (this.raw != IntPtr.Zero)
@@ -21,6 +30,9 @@ namespace Parrot
 			if (result != 1)
 				this.Parrot.GetErrorResult();
 		}
+		
+		[DllImport("parrot", CharSet = CharSet.Ansi)]
+		private static extern int Parrot_api_string_import_ascii(IntPtr interp, string str, out IntPtr pstring);
 
 		[DllImport("parrot", CharSet = CharSet.None)]
 		private static extern int Parrot_api_string_export_ascii(IntPtr interp, IntPtr str, out IntPtr strout);
