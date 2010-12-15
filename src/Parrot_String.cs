@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Parrot
+namespace ParrotSharp
 {
     public class Parrot_String : ParrotPointer
 	{

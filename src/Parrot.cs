@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace Parrot
+namespace ParrotSharp
 {
     public class Parrot : IParrotPointer
     {
@@ -97,6 +97,11 @@ namespace Parrot
 		# endregion
 
 		# region Bytecode
+		
+		public Parrot_PMC GetParrotArgArray(string[] args)
+		{
+			return args.ToParrotStringArray(this);
+		}		
 
 		[DllImport("parrot", CharSet=CharSet.Ansi)]
 		private static extern int Parrot_api_load_bytecode_file(IntPtr interp, string filename, out IntPtr pbc);

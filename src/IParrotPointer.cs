@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Parrot
+namespace ParrotSharp
 {
 	public interface IParrotPointer
 	{

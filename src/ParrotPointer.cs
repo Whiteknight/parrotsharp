@@ -1,6 +1,6 @@
 using System;
 
-namespace Parrot
+namespace ParrotSharp
 {
     public abstract class ParrotPointer
 	{

@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 
-namespace Parrot
+namespace ParrotSharp
 {
     public class ParrotException : Exception
 	{
