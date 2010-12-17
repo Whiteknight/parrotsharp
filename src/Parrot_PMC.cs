@@ -33,5 +33,27 @@ namespace ParrotSharp
 			if (result != 1)
 				this.Parrot.GetErrorResult;
 		}
+		
+		[DllImport("parrot")]
+		private static extern int Parrot_api_pmc_get_keyed_int(IntPtr interp, IntPtr pmc, int key, out IntPtr value);
+		
+		[DllImport("parrot")]
+		private static extern int Parrot_api_pmc_set_keyed_int(IntPtr interp, IntPtr pmc, int key, IntPtr value);
+		
+		public Parrot_PMC this[int key]
+		{
+			get {
+				IntPtr value_ptr = IntPtr.Zero;
+				int result = Parrot_api_pmc_get_keyed_int(this.Parrot.RawPointer, this.RawPointer, key, out value_ptr);
+				if (result != 1)
+					this.Parrot.GetErrorResult();
+				return new Parrot_PMC(this.Parrot, value_ptr);
+			}
+			set {
+				int result = Parrot_api_pmc_set_keyed_int(this.Parrot.RawPointer, this.RawPointer, key, value.RawPointer);
+				if (result != 1)
+					this.Parrot.GetErrorResult();
+			}
+		}		
 	}
 }
