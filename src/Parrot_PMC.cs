@@ -31,7 +31,7 @@ namespace ParrotSharp
 		{
 			int result = Parrot_api_pmc_invoke(this.Parrot.RawPointer, this.RawPointer, signature.RawPointer);
 			if (result != 1)
-				this.Parrot.GetErrorResult;
+				this.Parrot.GetErrorResult();
 		}
 		
 		[DllImport("parrot")]
