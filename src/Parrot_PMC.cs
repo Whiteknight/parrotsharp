@@ -23,5 +23,15 @@ namespace ParrotSharp
 		{
 			return this.GetParrotString().ToString();
 		}
+		
+		[DllImport("parrot")]
+		private static extern int Parrot_api_pmc_invoke(IntPtr interp, IntPtr sub, IntPtr signature);
+		
+		protected void Invoke(Parrot_PMC signature)
+		{
+			int result = Parrot_api_pmc_invoke(this.Parrot.RawPointer, this.RawPointer, signature.RawPointer);
+			if (result != 1)
+				this.Parrot.GetErrorResult;
+		}
 	}
 }

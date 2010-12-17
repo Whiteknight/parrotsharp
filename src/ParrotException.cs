@@ -35,7 +35,7 @@ namespace ParrotSharp
         private static extern int Parrot_api_get_exception_backtrace(IntPtr interp_pmc, IntPtr exception,
 		                                                      out IntPtr bt);
 
-		public override string  StackTrace
+		public override string StackTrace
 		{
 			get 
 			{ 
