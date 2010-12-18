@@ -1,7 +1,7 @@
 using System;
 namespace ParrotSharp
 {
-	public class PMCFactory<TPmc> where TPmc : class, IParrot_PMC, new()
+	public class PMCFactory<TPmc> : IPMCFactory<TPmc> where TPmc : class, IParrot_PMC
 	{
 		private Parrot parrot;
 		private Pmc.Class pmc_class;

@@ -6,9 +6,9 @@ namespace ParrotSharp.Pmc
 	{
 		public CallContext (Parrot parrot, IntPtr ptr) : base(parrot, ptr) {}
 		
-		public static IPMCFactory<CallContext> GetFactory()
+		public static IPMCFactory<CallContext> GetFactory(Parrot parrot)
 		{
-			return new PMCFactory<CallContext>(this.Parrot, "CallContext");
+			return new PMCFactory<CallContext>(parrot, "CallContext");
 		}
 	}
 }

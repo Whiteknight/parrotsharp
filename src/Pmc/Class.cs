@@ -19,9 +19,9 @@ namespace ParrotSharp.Pmc
 			return new Class(parrot, class_ptr);
 		}
 		
-		public static IPMCFactory<Class> GetFactory()
+		public static IPMCFactory<Class> GetFactory(Parrot parrot)
 		{
-			return new PMCFactory<Class>(this.Parrot, "Class");
+			return new PMCFactory<Class>(parrot, "Class");
 		}
 		
 		[DllImport("parrot")]
