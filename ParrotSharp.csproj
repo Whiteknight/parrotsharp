@@ -53,6 +53,8 @@
     <Compile Include="src\Pmc\PMCFactory.cs" />
     <Compile Include="src\Pmc\Class.cs" />
     <Compile Include="src\Pmc\IPMCFactory.cs" />
+    <Compile Include="src\Pmc\String.cs" />
+    <Compile Include="src\Pmc\Integer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

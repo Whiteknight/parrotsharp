@@ -7,7 +7,8 @@ namespace ParrotSharp
         protected IntPtr ptr = IntPtr.Zero;
 		private readonly Parrot parrot;
 
-        public IntPtr RawPointer {
+        public IntPtr RawPointer
+		{
             get { return this.ptr; }
         }
 
@@ -22,7 +23,8 @@ namespace ParrotSharp
 			this.ptr = IntPtr.Zero;
 		}		
 
-        public ParrotPointer(Parrot parrot, IntPtr ptr) {
+        public ParrotPointer(Parrot parrot, IntPtr ptr)
+		{
 			this.parrot = parrot;
             this.ptr = ptr;
         }
