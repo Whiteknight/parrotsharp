@@ -47,6 +47,12 @@
     <Compile Include="src\ParrotPointer.cs" />
     <Compile Include="src\Parrot_PMC.cs" />
     <Compile Include="src\Parrot_String.cs" />
+    <Compile Include="src\Pmc\CallSignature.cs" />
+    <Compile Include="src\Pmc\IPMC_Type.cs" />
+    <Compile Include="src\IParrot_PMC.cs" />
+    <Compile Include="src\Pmc\PMCFactory.cs" />
+    <Compile Include="src\Pmc\Class.cs" />
+    <Compile Include="src\Pmc\IPMCFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -57,4 +63,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="src\Pmc\" />
+  </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace ParrotSharp
 {
-    public class Parrot_PMC : ParrotPointer
+    public class Parrot_PMC : ParrotPointer, IParrot_PMC
 	{
         public Parrot_PMC(Parrot parrot, IntPtr ptr) : base(parrot, ptr) { }
 
@@ -40,7 +40,7 @@ namespace ParrotSharp
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_set_keyed_int(IntPtr interp, IntPtr pmc, int key, IntPtr value);
 		
-		public Parrot_PMC this[int key]
+		protected Parrot_PMC this[int key]
 		{
 			get {
 				IntPtr value_ptr = IntPtr.Zero;
@@ -54,6 +54,6 @@ namespace ParrotSharp
 				if (result != 1)
 					this.Parrot.GetErrorResult();
 			}
-		}		
+		}	
 	}
 }
