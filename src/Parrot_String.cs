@@ -24,7 +24,7 @@ namespace ParrotSharp
 		
 		~Parrot_String()
 		{
-			if (this.raw != IntPtr.Zero)
+			if (this.raw == IntPtr.Zero)
 				return;
 			int result = Parrot_api_string_free_exported_ascii(this.Parrot.RawPointer, this.raw);
 			if (result != 1)
