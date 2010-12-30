@@ -7,6 +7,14 @@ namespace ParrotSharp
     public class Parrot : IParrotPointer
     {
         private Parrot_PMC Interp;
+		
+		public string ExecutableName {
+			set {
+				int result = Parrot_api_set_executable_name(this.RawPointer, value);
+				if (result != 1)
+					this.GetErrorResult();
+			}
+		}
 
 		# region IParrotPointer
 
@@ -25,14 +33,33 @@ namespace ParrotSharp
 		private static extern int Parrot_api_set_executable_name(IntPtr interp, string exename);
 
         public Parrot() {
-            IntPtr interp_raw;
+			IntPtr interp_raw;
             int result = Parrot_api_make_interpreter(IntPtr.Zero, 0, IntPtr.Zero, out interp_raw);
             if (result != 1)
                 this.GetErrorResult();
             this.Interp = new Parrot_PMC(this, interp_raw);
         }
+		
+		public Parrot(Parrot parent) {
+			IntPtr raw_parent;
+			if(parent == null) raw_parent = IntPtr.Zero;
+			else raw_parent = parent.RawPointer;
+			
+			IntPtr interp_raw;
+            int result = Parrot_api_make_interpreter(raw_parent, 0, IntPtr.Zero, out interp_raw);
+            if (result != 1)
+                this.GetErrorResult();
+            this.Interp = new Parrot_PMC(this, interp_raw);
+		}
 
 		public Parrot(string exename) : this()
+		{
+			int result = Parrot_api_set_executable_name(this.RawPointer, exename);
+			if (result != 1)
+				this.GetErrorResult();
+		}
+		
+		public Parrot(Parrot parent, string exename) : this(parent)
 		{
 			int result = Parrot_api_set_executable_name(this.RawPointer, exename);
 			if (result != 1)
