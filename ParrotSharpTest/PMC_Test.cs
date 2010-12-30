@@ -34,5 +34,18 @@ namespace ParrotSharpTest
 			Assert.AreEqual("This is a parrot pmc", pmc_string.ToString(), "Error when invoking a method");
 		}
 		
+		[Test()]
+		[ExpectedException(typeof(ParrotException))]
+		public void InvokeUnexistingMethod() {
+			string exename = AppDomain.CurrentDomain.FriendlyName;
+			Parrot parrot = new Parrot(Parrot_Test.ParentInterpreter, exename);
+			
+			Parrot_PMC pmc_string = "This is a parrot string".ToParrotStringPMC(parrot);
+			IPMCFactory<CallContext> sign_factory = CallContext.GetFactory(parrot);
+			CallContext sign = sign_factory.Instance();
+			sign.Signature = "Pi->".ToParrotString(parrot);
+
+			pmc_string.InvokeMethod("unexisting_method".ToParrotString(parrot), sign);
+		}		
 	}	
 }
