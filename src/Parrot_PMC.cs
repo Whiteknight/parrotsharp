@@ -9,6 +9,9 @@ namespace ParrotSharp
 
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_get_string(IntPtr interp, IntPtr pmc, out IntPtr str);
+		
+		[DllImport("parrot")]
+		private static extern int Parrot_api_pmc_set_string(IntPtr interp, IntPtr pmc, IntPtr str);
 
 		public Parrot_String GetParrotString()
 		{
@@ -18,6 +21,13 @@ namespace ParrotSharp
 				this.Parrot.GetErrorResult();
 			return new Parrot_String(this.Parrot, str);
 		}
+		
+		public void SetParrotString(Parrot_String str)
+		{
+			int result = Parrot_api_pmc_set_string(this.Parrot.RawPointer, this.RawPointer, str.RawPointer);
+			if (result != 1)
+				this.Parrot.GetErrorResult();
+		}		
 
 		public override string ToString()
 		{
@@ -32,6 +42,11 @@ namespace ParrotSharp
 			int result = Parrot_api_pmc_invoke(this.Parrot.RawPointer, this.RawPointer, signature.RawPointer);
 			if (result != 1)
 				this.Parrot.GetErrorResult();
+		}
+		
+		public Parrot_PMC FindMethod(string name)
+		{
+			return this.Parrot.PmcNull;
 		}
 		
 		[DllImport("parrot")]
@@ -62,23 +77,23 @@ namespace ParrotSharp
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_set_keyed_string(IntPtr interp, IntPtr pmc, IntPtr key, IntPtr value);
 		
-		protected Parrot_PMC this[Parrot_String key]
+		protected IntPtr this[Parrot_String key]
 		{
 			get {
 				IntPtr value_ptr = IntPtr.Zero;
 				int result = Parrot_api_pmc_get_keyed_string(this.Parrot.RawPointer, this.RawPointer, key.RawPointer, out value_ptr);
 				if (result != 1)
 					this.Parrot.GetErrorResult();
-				return new Parrot_PMC(this.Parrot, value_ptr);
+				return value_ptr;
 			}
 			set {
-				int result = Parrot_api_pmc_set_keyed_string(this.Parrot.RawPointer, this.RawPointer, key.RawPointer, value.RawPointer);
+				int result = Parrot_api_pmc_set_keyed_string(this.Parrot.RawPointer, this.RawPointer, key.RawPointer, value);
 				if (result != 1)
 					this.Parrot.GetErrorResult();
 			}
 		}
 		
-		protected Parrot_PMC this[string key]
+		protected IntPtr this[string key]
 		{
 			get { return this[key.ToParrotString(this.Parrot)]; }
 			set { this[key.ToParrotString(this.Parrot)] = value; }
@@ -90,20 +105,21 @@ namespace ParrotSharp
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_set_keyed(IntPtr interp, IntPtr pmc, IntPtr key, IntPtr value);
 		
-		protected Parrot_PMC this[IParrot_PMC key]
+		protected IntPtr this[IParrot_PMC key]
 		{
 			get {
 				IntPtr value_ptr = IntPtr.Zero;
 				int result = Parrot_api_pmc_get_keyed(this.Parrot.RawPointer, this.RawPointer, key.RawPointer, out value_ptr);
 				if (result != 1)
 					this.Parrot.GetErrorResult();
-				return new Parrot_PMC(this.Parrot, value_ptr);
+				return value_ptr;
 			}
 			set {
-				int result = Parrot_api_pmc_set_keyed(this.Parrot.RawPointer, this.RawPointer, key.RawPointer, value.RawPointer);
+				int result = Parrot_api_pmc_set_keyed(this.Parrot.RawPointer, this.RawPointer, key.RawPointer, value);
 				if (result != 1)
 					this.Parrot.GetErrorResult();
 			}
 		}
+
 	}
 }

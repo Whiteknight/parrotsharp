@@ -26,19 +26,31 @@ namespace ParrotSharp
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_box_string(IntPtr interp, IntPtr str, out IntPtr pmc);
 		
-		public static Parrot_PMC ToParrotStringPMC(this string arg, Parrot parrot)
+		public static IParrot_PMC ToParrotStringPMC(this string arg, Parrot parrot)
 		{
 			IntPtr pmc_ptr = IntPtr.Zero;
 			Parrot_String str = new Parrot_String(parrot, arg);
 			int result = Parrot_api_pmc_box_string(parrot.RawPointer, str.RawPointer, out pmc_ptr);
 			if (result != 1)
 				parrot.GetErrorResult();
-			return new Parrot_PMC(parrot, pmc_ptr);
+			return new Pmc.String(parrot, pmc_ptr);
 		}
 		
 		public static Parrot_String ToParrotString(this string arg, Parrot parrot)
 		{
 			return new Parrot_String(parrot, arg);
+		}
+		
+		[DllImport("parrot")]
+		private static extern int Parrot_api_pmc_box_integer(IntPtr interp, int value, out IntPtr pmc);
+		
+		public static IParrot_PMC ToParrotIntegerPMC(this int arg, Parrot parrot)
+		{
+			IntPtr pmc_ptr = IntPtr.Zero;
+			int result = Parrot_api_pmc_box_integer(parrot.RawPointer, arg, out pmc_ptr);
+			if (result != 1)
+				parrot.GetErrorResult();
+			return new Pmc.Integer(parrot, pmc_ptr);
 		}		
 	}
 }

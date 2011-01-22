@@ -22,6 +22,17 @@ namespace ParrotSharp.Pmc
 		public static IPMCFactory<String> GetFactory(Parrot parrot)
 		{
 			return new PMCFactory<String>(parrot, "String");
+		}
+		
+		public IParrot_PMC ToIntegerPMC(int int_base)
+		{
+			CallContext cc = CallContext.GetFactory(this.parrot);
+			cc[0] = this;
+			cc[1] = int_base.ToParrotIntegerPMC(this.Parrot);
+			cc.SetParrotString("PiI->P");
+			// TODO: get the method
+			// TODO: Invoke it
+			// TODO: get the returns
 		}		
 	}
 }

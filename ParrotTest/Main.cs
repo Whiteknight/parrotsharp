@@ -18,11 +18,11 @@ namespace ParrotTest
 				pbcargs[i - 1] = args[i];
 			Parrot parrot = new Parrot(exename);
 			try {
-				//Parrot_PMC pbc = parrot.LoadBytecodeFile(pbcfile);
-				//Parrot_PMC mainargs = parrot.GetParrotArgArray(pbcargs);
+				Parrot_PMC pbc = parrot.LoadBytecodeFile(pbcfile);
+				Parrot_PMC mainargs = parrot.GetParrotArgArray(pbcargs);
 				
 				//Parrot_PMC mainargs = parrot.PmcNull;
-				//parrot.RunBytecode(pbc, mainargs);
+				parrot.RunBytecode(pbc, mainargs);
 			} catch (ParrotException ex) {
 				Console.WriteLine("Main: " + ex.Message + "\n" + ex.StackTrace);
 			}
