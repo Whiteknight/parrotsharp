@@ -5,7 +5,9 @@ namespace ParrotSharp
 	public interface IPMCFactory<TPmc> where TPmc : class, IParrot_PMC
 	{
 		TPmc Instance();
-		TPmc Instance(Parrot_PMC pmc);
+		TPmc Instance(IParrot_PMC intt);
+		TPmc Cast(IParrot_PMC pmc);
+		TPmc Cast(IntPtr pmc_ptr);
 	}
 }
 
