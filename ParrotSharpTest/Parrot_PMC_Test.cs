@@ -6,10 +6,12 @@ using System;
 namespace ParrotSharpTest
 {
 	[TestFixture()]  
-	public class PMC_Test {
+	public class Parrot_PMC_Test
+	{
 		
 		[Test()]
-		public void BoxString() {			
+		public void BoxString()
+		{			
 			string exename = AppDomain.CurrentDomain.FriendlyName;
 			Parrot parrot = new Parrot(Parrot_Test.ParentInterpreter, exename);
 			
@@ -18,7 +20,8 @@ namespace ParrotSharpTest
 		}
 		
 		[Test()]
-		public void InvokeMethod() {
+		public void InvokeMethod()
+		{
 			string exename = AppDomain.CurrentDomain.FriendlyName;
 			Parrot parrot = new Parrot(Parrot_Test.ParentInterpreter, exename);
 			
@@ -36,7 +39,8 @@ namespace ParrotSharpTest
 		
 		[Test()]
 		[ExpectedException(typeof(ParrotException))]
-		public void InvokeUnexistingMethod() {
+		public void InvokeUnexistingMethod()
+		{
 			string exename = AppDomain.CurrentDomain.FriendlyName;
 			Parrot parrot = new Parrot(Parrot_Test.ParentInterpreter, exename);
 			

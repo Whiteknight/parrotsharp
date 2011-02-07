@@ -47,8 +47,8 @@ namespace ParrotSharp.Pmc
 		
 		public void AddArgument(IParrot_PMC arg)
 		{
-			this[ArgNum] = arg;
-			ArgNum++;
+			this[this.ArgNum] = arg;
+			this.ArgNum++;
 		}
 		
 		#endregion

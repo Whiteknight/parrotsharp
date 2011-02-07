@@ -37,8 +37,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PMC_Test.cs" />
     <Compile Include="Parrot_Test.cs" />
+    <Compile Include="Parrot_PMC_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParrotSharp.csproj">
