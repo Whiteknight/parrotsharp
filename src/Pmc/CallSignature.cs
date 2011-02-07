@@ -2,7 +2,7 @@ using System;
 
 namespace ParrotSharp.Pmc
 {
-	public class CallContext : Parrot_PMC, IParrot_PMC, IRole_Hash, IRole_Array
+	public class CallContext : Parrot_PMC, IParrot_PMC, IPMCRole_Hash, IPMCRole_Array
 	{
 		#region Private Fields
 		

@@ -42,6 +42,7 @@
     <Compile Include="Parrot_String_Test.cs" />
     <Compile Include="ParrotExtensionMethods_Test.cs" />
     <Compile Include="Pmc\Integer_Test.cs" />
+    <Compile Include="Test\TestManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParrotSharp.csproj">
@@ -57,5 +58,6 @@
   </ProjectExtensions>
   <ItemGroup>
     <Folder Include="Pmc\" />
+    <Folder Include="Test\" />
   </ItemGroup>
 </Project>

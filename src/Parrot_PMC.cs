@@ -57,7 +57,7 @@ namespace ParrotSharp
 				int result = Parrot_api_pmc_get_integer(this.Parrot.RawPointer, this.RawPointer, out i);
 				if (result != 1)
 					this.Parrot.GetErrorResult();
-				return result;
+				return i;
 			}		
 			set {
 				int result = Parrot_api_pmc_set_integer(this.Parrot.RawPointer, this.RawPointer, value);

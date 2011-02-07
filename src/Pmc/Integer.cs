@@ -2,7 +2,7 @@ using System;
 
 namespace ParrotSharp.Pmc
 {
-	public class Integer : Parrot_PMC, IParrot_PMC, IPMC_Integer
+	public class Integer : Parrot_PMC, IParrot_PMC, IPMCRole_Integer
 	{
 		#region Constructor
 		

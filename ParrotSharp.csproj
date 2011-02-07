@@ -47,14 +47,15 @@
     <Compile Include="src\Parrot_PMC.cs" />
     <Compile Include="src\Parrot_String.cs" />
     <Compile Include="src\Pmc\CallSignature.cs" />
-    <Compile Include="src\Pmc\IPMC_Type.cs" />
     <Compile Include="src\IParrot_PMC.cs" />
     <Compile Include="src\Pmc\PMCFactory.cs" />
     <Compile Include="src\Pmc\Class.cs" />
     <Compile Include="src\Pmc\IPMCFactory.cs" />
     <Compile Include="src\Pmc\String.cs" />
     <Compile Include="src\Pmc\Integer.cs" />
-    <Compile Include="src\Pmc\IPMC_Integer.cs" />
+    <Compile Include="src\Pmc\IPMCRole_Integer.cs" />
+    <Compile Include="src\Pmc\IPMCRole_Hash.cs" />
+    <Compile Include="src\Pmc\IPMCRole_Array.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

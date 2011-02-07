@@ -9,12 +9,13 @@ namespace ParrotSharpTest
 	public class Parrot_Test
 	{
 		
-		static private Parrot ParrotParent = null;
+		private static Parrot ParrotParent = null;
 		
-		static public Parrot ParentInterpreter
+		private static Parrot ParentInterpreter
 		{
 			get {
-				if(ParrotParent != null) return ParrotParent;
+				if (ParrotParent != null)
+					return ParrotParent;
 				else {
 					ParrotParent = new Parrot();
 					return ParrotParent;
@@ -22,13 +23,19 @@ namespace ParrotSharpTest
 			}
 		}
 		
-		[Test()]
+		[Test]
 		public void CreateParrot()
+		{
+			Parrot parrot = new Parrot();
+			Assert.AreNotEqual(IntPtr.Zero, parrot.RawPointer);
+		}
+		
+		[Test]
+		public void CreateParrot_WithParentAndName()
 		{
 			string exename = AppDomain.CurrentDomain.FriendlyName;
 			Parrot parrot = new Parrot(ParentInterpreter, exename);
 			Assert.AreNotEqual(IntPtr.Zero, parrot.RawPointer, "Unable to create a new Parrot interpreter");
-		}
-		
+		}	
 	}
 }

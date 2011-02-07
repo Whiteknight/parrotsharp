@@ -12,18 +12,15 @@ namespace ParrotSharpTest
 		[Test()]
 		public void InvokeMethod()
 		{
-			string exename = AppDomain.CurrentDomain.FriendlyName;
-			Parrot parrot = new Parrot(Parrot_Test.ParentInterpreter, exename);
-			
-			IParrot_PMC pmc_string = "This is a parrot string".ToParrotStringPMC(parrot);
-			IPMCFactory<CallContext> sign_factory = CallContext.GetFactory(parrot);
+			IParrot_PMC pmc_string = "This is a parrot string".ToParrotStringPMC(TestManager.Interp);
+			IPMCFactory<CallContext> sign_factory = CallContext.GetFactory(TestManager.Interp);
 			CallContext sign = sign_factory.Instance();
-			sign.Signature = "PiSS->".ToParrotString(parrot);
+			sign.Signature = "PiSS->".ToParrotString(TestManager.Interp);
 			sign.AddArgument(pmc_string);
-			sign.AddArgument("string".ToParrotStringPMC(parrot));
-			sign.AddArgument("pmc".ToParrotStringPMC(parrot));
+			sign.AddArgument("string".ToParrotStringPMC(TestManager.Interp));
+			sign.AddArgument("pmc".ToParrotStringPMC(TestManager.Interp));
 			
-			pmc_string.InvokeMethod("replace".ToParrotString(parrot), sign);
+			pmc_string.InvokeMethod("replace".ToParrotString(TestManager.Interp), sign);
 			Assert.AreEqual("This is a parrot pmc", pmc_string.ToString(), "Error when invoking a method");
 		}
 		
@@ -31,15 +28,11 @@ namespace ParrotSharpTest
 		[ExpectedException(typeof(ParrotException))]
 		public void InvokeUnexistingMethod()
 		{
-			string exename = AppDomain.CurrentDomain.FriendlyName;
-			Parrot parrot = new Parrot(Parrot_Test.ParentInterpreter, exename);
-			
-			IParrot_PMC pmc_string = "This is a parrot string".ToParrotStringPMC(parrot);
-			IPMCFactory<CallContext> sign_factory = CallContext.GetFactory(parrot);
+			IParrot_PMC pmc_string = "This is a parrot string".ToParrotStringPMC(TestManager.Interp);
+			IPMCFactory<CallContext> sign_factory = CallContext.GetFactory(TestManager.Interp);
 			CallContext sign = sign_factory.Instance();
-			sign.Signature = "Pi->".ToParrotString(parrot);
-
-			pmc_string.InvokeMethod("unexisting_method".ToParrotString(parrot), sign);
+			sign.Signature = "Pi->".ToParrotString(TestManager.Interp);
+			pmc_string.InvokeMethod("unexisting_method".ToParrotString(TestManager.Interp), sign);
 		}		
 	}	
 }
