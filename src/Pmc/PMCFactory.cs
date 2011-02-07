@@ -1,7 +1,8 @@
 using System;
 namespace ParrotSharp
 {
-	public class PMCFactory<TPmc> : IPMCFactory<TPmc> where TPmc : class, IParrot_PMC
+	public class PMCFactory<TPmc> : IPMCFactory, IPMCFactory<TPmc>
+		where TPmc : class, IParrot_PMC
 	{
 		#region Private Fields
 		
