@@ -39,6 +39,8 @@
   <ItemGroup>
     <Compile Include="Parrot_Test.cs" />
     <Compile Include="Parrot_PMC_Test.cs" />
+    <Compile Include="Parrot_String_Test.cs" />
+    <Compile Include="ParrotExtensionMethods_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParrotSharp.csproj">

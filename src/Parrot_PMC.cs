@@ -42,6 +42,32 @@ namespace ParrotSharp
 		
 		#endregion
 		
+		#region Get/Set Integer Value
+		
+		[DllImport("parrot")]
+		private static extern int Parrot_api_pmc_get_integer(IntPtr interp, IntPtr pmc, out int i);
+		
+		[DllImport("parrot")]
+		private static extern int Parrot_api_pmc_set_integer(IntPtr interp, IntPtr pmc, int i);
+		
+		protected int IntegerValue
+		{
+			get {
+				int i;
+				int result = Parrot_api_pmc_get_integer(this.Parrot.RawPointer, this.RawPointer, out i);
+				if (result != 1)
+					this.Parrot.GetErrorResult();
+				return result;
+			}		
+			set {
+				int result = Parrot_api_pmc_set_integer(this.Parrot.RawPointer, this.RawPointer, value);
+				if (result != 1)
+					this.Parrot.GetErrorResult();
+			}
+		}		
+				
+		#endregion		
+		
 		#region Invoke
 		
 		[DllImport("parrot")]
