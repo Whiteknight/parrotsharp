@@ -3,9 +3,16 @@ using System.Runtime.InteropServices;
 
 namespace ParrotSharp.Pmc
 {
+	// String PMC type (Not Parrot_String)
 	public class String : Parrot_PMC, IParrot_PMC
 	{
+		#region Constructor
+		
 		public String (Parrot parrot, IntPtr ptr) : base(parrot, ptr) {}
+		
+		#endregion
+		
+		#region Box Parrot_String
 		
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_box_string(IntPtr interp, IntPtr str, out IntPtr pmc);
@@ -17,12 +24,20 @@ namespace ParrotSharp.Pmc
 			if (result != 1)
 				parrot.GetErrorResult();
 			return new String(parrot, pmc_ptr);
-		}		
+		}
+		
+		#endregion
+		
+		#region IPMCFactory
 		
 		public static IPMCFactory<String> GetFactory(Parrot parrot)
 		{
 			return new PMCFactory<String>(parrot, "String");
 		}
+		
+		#endregion
+		
+		#region Parse To Integer
 		
 		public IParrot_PMC ToIntegerPMC(int int_base)
 		{
@@ -34,6 +49,8 @@ namespace ParrotSharp.Pmc
 			// TODO: Invoke it
 			// TODO: get the returns
 		}		
+		
+		#endregion
 	}
 }
 

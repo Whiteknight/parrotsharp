@@ -4,7 +4,13 @@ namespace ParrotSharp.Pmc
 {
 	public class Class : Parrot_PMC, IParrot_PMC
 	{
+		#region Constructor
+		
 		public Class (Parrot parrot, IntPtr ptr) : base(parrot, ptr) {}
+		
+		#endregion
+		
+		#region Get Parrot Class PMC
 		
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_get_class(IntPtr interp, IntPtr key, out IntPtr class_pmc);
@@ -19,10 +25,18 @@ namespace ParrotSharp.Pmc
 			return new Class(parrot, class_ptr);
 		}
 		
+		#endregion
+		
+		#region IPMCFactory
+		
 		public static IPMCFactory<Class> GetFactory(Parrot parrot)
 		{
 			return new PMCFactory<Class>(parrot, "Class");
 		}
+		
+		#endregion
+		
+		#region Instantiate
 		
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_new_from_class(IntPtr interp, IntPtr class_pmc, IntPtr init, out IntPtr pmc);
@@ -45,6 +59,10 @@ namespace ParrotSharp.Pmc
 		{
 			return new Parrot_PMC(this.Parrot, this.InstantiatePointer(init));
 		}		
+		
+		#endregion
+		
+		// TODO: manage parents. Add/remove roles. Add/remove attributes. Add/remove methods
 	}
 }
 

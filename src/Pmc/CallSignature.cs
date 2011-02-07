@@ -4,14 +4,28 @@ namespace ParrotSharp.Pmc
 {
 	public class CallContext : Parrot_PMC, IParrot_PMC, IRole_Hash, IRole_Array
 	{
-		int ArgNum = 0;
+		#region Private Fields
+		
+		private int ArgNum = 0;
+		
+		#endregion
+		
+		#region Constructor
 
 		public CallContext (Parrot parrot, IntPtr ptr) : base(parrot, ptr) {}
+		
+		#endregion
+		
+		#region IPMCFactory>
 
 		public static IPMCFactory<CallContext> GetFactory(Parrot parrot)
 		{
 			return new PMCFactory<CallContext>(parrot, "CallContext");
 		}
+		
+		#endregion
+		
+		#region Get/Set Parameters
 
 		public IParrot_PMC this[int key]
 		{
@@ -29,17 +43,26 @@ namespace ParrotSharp.Pmc
 		{
 			get { return new Parrot_PMC(this.RawPointer, base[key]); }
 			set { base[key] = value.RawPointer; }
-                }
-
-		public Parrot_String Signature {
-			get { return StringValue; }
-			set { StringValue = value; }
-		}
-
-		public void AddArgument(Parrot_PMC arg) {
+        }
+		
+		public void AddArgument(Parrot_PMC arg)
+		{
 			this[ArgNum] = arg;
 			ArgNum++;
 		}
+		
+		#endregion
+		
+		#region Signature String
+
+		public Parrot_String Signature
+		{
+			get { return StringValue; }
+			set { StringValue = value; }
+		}
+		
+		#endregion
+
 	}
 }
 

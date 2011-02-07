@@ -8,6 +8,8 @@ namespace ParrotSharp
 {
 	public static class ParrotExtensionMethods
 	{
+		#region Wrap String Array
+		
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_wrap_string_array(IntPtr interp, int argc, IntPtr[] argv, out IntPtr array);
 
@@ -22,6 +24,10 @@ namespace ParrotSharp
 				parrot.GetErrorResult();
 			return new Parrot_PMC(parrot, pmc);
 		}
+		
+		#endregion
+		
+		#region Box C# String to Parrot String
 		
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_box_string(IntPtr interp, IntPtr str, out IntPtr pmc);
@@ -41,6 +47,10 @@ namespace ParrotSharp
 			return new Parrot_String(parrot, arg);
 		}
 		
+		#endregion
+		
+		#region Box C# Integer to Parrot Integer PMC
+		
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_box_integer(IntPtr interp, int value, out IntPtr pmc);
 		
@@ -52,5 +62,7 @@ namespace ParrotSharp
 				parrot.GetErrorResult();
 			return new Pmc.Integer(parrot, pmc_ptr);
 		}		
+		
+		#endregion
 	}
 }

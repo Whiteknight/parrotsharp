@@ -3,10 +3,17 @@ using System.Runtime.InteropServices;
 
 namespace ParrotSharp
 {
+	// Wrapper class for the Parrot_String (STRING*) type
     public class Parrot_String : ParrotPointer
 	{
+		#region Private Fields
+		
 		private string strcache;
 		private IntPtr raw; // a char* pointer to the internal buffer. Must be freed
+		
+		#endregion
+		
+		#region Constructors
 
         public Parrot_String(Parrot parrot, IntPtr ptr) : base(parrot, ptr)
 		{
@@ -31,6 +38,10 @@ namespace ParrotSharp
 				this.Parrot.GetErrorResult();
 		}
 		
+		#endregion
+		
+		#region Import/Export Pointers API Functions
+		
 		[DllImport("parrot", CharSet = CharSet.Ansi)]
 		private static extern int Parrot_api_string_import_ascii(IntPtr interp, string str, out IntPtr pstring);
 
@@ -39,6 +50,10 @@ namespace ParrotSharp
 
 		[DllImport("parrot")]
 		private static extern int Parrot_api_string_free_exported_ascii(IntPtr interp, IntPtr str);
+		
+		#endregion
+		
+		#region Get C# String object
 
 		private string GetRawString()
 		{
@@ -58,6 +73,6 @@ namespace ParrotSharp
 			return this.strcache;
 		}
 
-
+		#endregion
     }
 }
