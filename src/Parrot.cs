@@ -66,7 +66,8 @@ namespace ParrotSharp
 		
 		private Parrot_PMC pmcnull;
 		
-		public Parrot_PMC PmcNull {
+		public Parrot_PMC PmcNull
+		{
 			get {
 				if (this.pmcnull != null)
 					return this.pmcnull;
@@ -88,7 +89,8 @@ namespace ParrotSharp
             out int is_error, out IntPtr exception, out int exit_code,
             out IntPtr errmsg);
 
-        public void GetErrorResult() {
+        public void GetErrorResult()
+		{
             int is_error = 0;
             IntPtr exception_raw = IntPtr.Zero;
             int exit_code = 0;
