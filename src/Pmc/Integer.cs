@@ -1,7 +1,8 @@
 using System;
+
 namespace ParrotSharp.Pmc
 {
-	public class Integer : Parrot_PMC, IParrot_PMC
+	public class Integer : Parrot_PMC, IParrot_PMC, IPMC_Integer
 	{
 		#region Constructor
 		
@@ -15,6 +16,16 @@ namespace ParrotSharp.Pmc
 		{
 			return new PMCFactory<Integer>(parrot, "Integer");
 		}
+		
+		#endregion
+		
+		#region IPMC_Integer
+		
+		public new int IntegerValue
+		{
+			get { return base.IntegerValue; }
+			set { base.IntegerValue = value; }
+		}		
 		
 		#endregion
 	}

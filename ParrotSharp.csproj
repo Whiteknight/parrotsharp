@@ -8,7 +8,7 @@
     <ProjectGuid>{AAED9261-C134-4905-88E6-197FBEA661F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ParrotSharp</RootNamespace>
+    <RootNamespace>Parrot</RootNamespace>
     <AssemblyName>ParrotSharp</AssemblyName>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -54,8 +54,7 @@
     <Compile Include="src\Pmc\IPMCFactory.cs" />
     <Compile Include="src\Pmc\String.cs" />
     <Compile Include="src\Pmc\Integer.cs" />
-    <Compile Include="src\Pmc\IRole_Array.cs" />
-    <Compile Include="src\Pmc\IRole_Hash.cs" />
+    <Compile Include="src\Pmc\IPMC_Integer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
