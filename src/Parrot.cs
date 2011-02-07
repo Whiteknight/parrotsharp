@@ -6,15 +6,11 @@ namespace ParrotSharp
 {
     public class Parrot : IParrotPointer
     {
+		#region Private Fields
+		
         private Parrot_PMC Interp;
 		
-		public string ExecutableName {
-			set {
-				int result = Parrot_api_set_executable_name(this.RawPointer, value);
-				if (result != 1)
-					this.GetErrorResult();
-			}
-		}
+		#endregion
 
 		# region IParrotPointer
 
@@ -32,38 +28,22 @@ namespace ParrotSharp
 		[DllImport("parrot", CharSet=CharSet.Ansi)]
 		private static extern int Parrot_api_set_executable_name(IntPtr interp, string exename);
 
-        public Parrot() {
-			IntPtr interp_raw;
-            int result = Parrot_api_make_interpreter(IntPtr.Zero, 0, IntPtr.Zero, out interp_raw);
-            if (result != 1)
-                this.GetErrorResult();
-            this.Interp = new Parrot_PMC(this, interp_raw);
-        }
+        public Parrot() : this(null, null) { }
 		
-		public Parrot(Parrot parent) {
-			IntPtr raw_parent;
-			if(parent == null) raw_parent = IntPtr.Zero;
-			else raw_parent = parent.RawPointer;
-			
+		public Parrot(Parrot parent) : this(parent, null) { }
+
+		public Parrot(string exename) : this(null, exename) { }
+		
+		public Parrot(Parrot parent, string exename)
+		{
+			IntPtr raw_parent = parent == null ? IntPtr.Zero : parent.RawPointer;
 			IntPtr interp_raw;
             int result = Parrot_api_make_interpreter(raw_parent, 0, IntPtr.Zero, out interp_raw);
             if (result != 1)
                 this.GetErrorResult();
             this.Interp = new Parrot_PMC(this, interp_raw);
-		}
-
-		public Parrot(string exename) : this()
-		{
-			int result = Parrot_api_set_executable_name(this.RawPointer, exename);
-			if (result != 1)
-				this.GetErrorResult();
-		}
-		
-		public Parrot(Parrot parent, string exename) : this(parent)
-		{
-			int result = Parrot_api_set_executable_name(this.RawPointer, exename);
-			if (result != 1)
-				this.GetErrorResult();
+			if (!String.IsNullOrEmpty(exename))
+				this.SetExecutableName(exename);
 		}
 		
 		[DllImport("parrot")]
@@ -154,6 +134,16 @@ namespace ParrotSharp
 
 		# endregion
 
+		#region Methods
+		
+		public void SetExecutableName(string value)
+		{
+			int result = Parrot_api_set_executable_name(this.RawPointer, value);
+			if (result != 1)
+				this.GetErrorResult();
+		}
 
+		#endregion
+		
 	}
 }

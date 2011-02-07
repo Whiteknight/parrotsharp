@@ -41,6 +41,7 @@
     <Compile Include="Parrot_PMC_Test.cs" />
     <Compile Include="Parrot_String_Test.cs" />
     <Compile Include="ParrotExtensionMethods_Test.cs" />
+    <Compile Include="Pmc\Integer_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParrotSharp.csproj">
@@ -54,4 +55,7 @@
       <Properties InternalTargetFrameworkVersion="3.5" />
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Pmc\" />
+  </ItemGroup>
 </Project>

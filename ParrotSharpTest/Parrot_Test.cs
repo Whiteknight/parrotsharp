@@ -1,7 +1,7 @@
+using System;
 using NUnit.Framework;
 using ParrotSharp;
 using ParrotSharp.Pmc;
-using System;
 
 namespace ParrotSharpTest
 {
