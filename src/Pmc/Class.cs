@@ -15,7 +15,7 @@ namespace ParrotSharp.Pmc
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_get_class(IntPtr interp, IntPtr key, out IntPtr class_pmc);
 		
-		public static Class GetClassPMC(Parrot parrot, Parrot_PMC key)
+		public static Class GetClassPMC(Parrot parrot, IParrot_PMC key)
 		{
 			IntPtr class_ptr = IntPtr.Zero;
 			int result = Parrot_api_pmc_get_class(parrot.RawPointer, key.RawPointer, out class_ptr);

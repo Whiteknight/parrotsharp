@@ -13,7 +13,7 @@ namespace ParrotSharpTest
 			string exename = AppDomain.CurrentDomain.FriendlyName;
 			Parrot parrot = new Parrot(Parrot_Test.ParentInterpreter, exename);
 			
-			Parrot_PMC box = "This is a parrot string".ToParrotStringPMC(parrot);
+			IParrot_PMC box = "This is a parrot string".ToParrotStringPMC(parrot);
 			Assert.AreEqual("This is a parrot string", box.ToString(), "Can't box string into a PMC");
 		}
 		
@@ -22,7 +22,7 @@ namespace ParrotSharpTest
 			string exename = AppDomain.CurrentDomain.FriendlyName;
 			Parrot parrot = new Parrot(Parrot_Test.ParentInterpreter, exename);
 			
-			Parrot_PMC pmc_string = "This is a parrot string".ToParrotStringPMC(parrot);
+			IParrot_PMC pmc_string = "This is a parrot string".ToParrotStringPMC(parrot);
 			IPMCFactory<CallContext> sign_factory = CallContext.GetFactory(parrot);
 			CallContext sign = sign_factory.Instance();
 			sign.Signature = "PiSS->".ToParrotString(parrot);
@@ -40,7 +40,7 @@ namespace ParrotSharpTest
 			string exename = AppDomain.CurrentDomain.FriendlyName;
 			Parrot parrot = new Parrot(Parrot_Test.ParentInterpreter, exename);
 			
-			Parrot_PMC pmc_string = "This is a parrot string".ToParrotStringPMC(parrot);
+			IParrot_PMC pmc_string = "This is a parrot string".ToParrotStringPMC(parrot);
 			IPMCFactory<CallContext> sign_factory = CallContext.GetFactory(parrot);
 			CallContext sign = sign_factory.Instance();
 			sign.Signature = "Pi->".ToParrotString(parrot);

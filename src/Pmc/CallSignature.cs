@@ -27,25 +27,25 @@ namespace ParrotSharp.Pmc
 		
 		#region Get/Set Parameters
 
-		public IParrot_PMC this[int key]
+		public new IParrot_PMC this[int key]
 		{
 			get { return new Parrot_PMC(this.Parrot, base[key]); }
 			set { base[key] = value.RawPointer; }
 		}
 
-		public IParrot_PMC this[string key]
+		public new IParrot_PMC this[string key]
 		{
 			get { return new Parrot_PMC(this.Parrot, base[key]); }
 			set { base[key] = value.RawPointer; }
 		}
 
-		public IParrot_PMC this[Parrot_String key]
+		public new IParrot_PMC this[Parrot_String key]
 		{
-			get { return new Parrot_PMC(this.RawPointer, base[key]); }
+			get { return new Parrot_PMC(this.Parrot, base[key]); }
 			set { base[key] = value.RawPointer; }
         }
 		
-		public void AddArgument(Parrot_PMC arg)
+		public void AddArgument(IParrot_PMC arg)
 		{
 			this[ArgNum] = arg;
 			ArgNum++;
@@ -57,8 +57,8 @@ namespace ParrotSharp.Pmc
 
 		public Parrot_String Signature
 		{
-			get { return StringValue; }
-			set { StringValue = value; }
+			get { return ParrotStringValue; }
+			set { ParrotStringValue = value; }
 		}
 		
 		#endregion

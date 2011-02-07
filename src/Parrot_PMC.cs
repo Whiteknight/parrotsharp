@@ -21,10 +21,11 @@ namespace ParrotSharp
 
 		public override string ToString()
 		{
-			return this.GetParrotString().ToString();
+			return this.ParrotStringValue.ToString();
 		}
 		
-		protected Parrot_String ParrotStringValue {
+		protected Parrot_String ParrotStringValue
+		{
 			get {
 				IntPtr value_ptr = IntPtr.Zero;
 				int result = Parrot_api_pmc_get_string(this.Parrot.RawPointer, this.RawPointer, out value_ptr);
@@ -62,7 +63,8 @@ namespace ParrotSharp
 		private static extern int Parrot_api_pmc_find_method(IntPtr interp_pmc, IntPtr pmc_obj, IntPtr ps_name, out IntPtr method);
 		
 		//TODO add a better way to modify the signature
-		public void InvokeMethod(Parrot_String name, Pmc.CallContext signature) {
+		public void InvokeMethod(Parrot_String name, Pmc.CallContext signature)
+		{
 			IntPtr sub_ptr;
 			int result = Parrot_api_pmc_find_method(this.Parrot.RawPointer, this.RawPointer, name.RawPointer, out sub_ptr);
 			if (result != 1) {
@@ -85,17 +87,17 @@ namespace ParrotSharp
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_set_keyed_int(IntPtr interp, IntPtr pmc, int key, IntPtr value);
 		
-		protected Parrot_PMC this[int key]
+		protected IntPtr this[int key]
 		{
 			get {
 				IntPtr value_ptr = IntPtr.Zero;
 				int result = Parrot_api_pmc_get_keyed_int(this.Parrot.RawPointer, this.RawPointer, key, out value_ptr);
 				if (result != 1)
 					this.Parrot.GetErrorResult();
-				return new Parrot_PMC(this.Parrot, value_ptr);
+				return value_ptr;
 			}
 			set {
-				int result = Parrot_api_pmc_set_keyed_int(this.Parrot.RawPointer, this.RawPointer, key, value.RawPointer);
+				int result = Parrot_api_pmc_set_keyed_int(this.Parrot.RawPointer, this.RawPointer, key, value);
 				if (result != 1)
 					this.Parrot.GetErrorResult();
 			}
@@ -132,6 +134,8 @@ namespace ParrotSharp
 			get { return this[key.ToParrotString(this.Parrot)]; }
 			set { this[key.ToParrotString(this.Parrot)] = value; }
 		}
+		
+		#endregion
 		
 		#region PMC-Keyed Indexing
 		

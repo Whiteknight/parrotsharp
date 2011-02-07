@@ -15,7 +15,7 @@ namespace ParrotSharp
 		public PMCFactory (Parrot parrot, string key)
 		{
 			this.parrot = parrot;
-			this.pmc_class = Pmc.Class.GetClassPMC(parrot, key.ToParrotStringPMC(parrot));
+			this.pmc_class = Pmc.Class.GetClassPMC(this.parrot, key.ToParrotStringPMC(parrot));
 		}
 		
 		public PMCFactory (Parrot parrot, string[] key)
