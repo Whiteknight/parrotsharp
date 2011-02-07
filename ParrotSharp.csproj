@@ -8,7 +8,7 @@
     <ProjectGuid>{AAED9261-C134-4905-88E6-197FBEA661F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Parrot</RootNamespace>
+    <RootNamespace>ParrotSharp</RootNamespace>
     <AssemblyName>ParrotSharp</AssemblyName>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -57,6 +57,8 @@
     <Compile Include="src\Pmc\IPMCRole_Hash.cs" />
     <Compile Include="src\Pmc\IPMCRole_Array.cs" />
     <Compile Include="src\Pmc\IPMCRole_String.cs" />
+    <Compile Include="src\Pmc\Sub.cs" />
+    <Compile Include="src\Pmc\IPMCRole_Invocable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

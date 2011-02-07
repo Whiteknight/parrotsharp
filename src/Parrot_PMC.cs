@@ -73,34 +73,31 @@ namespace ParrotSharp
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_invoke(IntPtr interp, IntPtr sub, IntPtr signature);
 		
-		protected void Invoke(Parrot_PMC signature)
+		[DllImport("parrot")]
+		private static extern int Parrot_api_pmc_find_method(IntPtr interp_pmc, IntPtr pmc_obj, IntPtr ps_name, out IntPtr method);
+		
+		protected IParrot_PMC[] Invoke(Parrot_PMC signature)
 		{
 			int result = Parrot_api_pmc_invoke(this.Parrot.RawPointer, this.RawPointer, signature.RawPointer);
 			if (result != 1)
 				this.Parrot.GetErrorResult();
+			// TODO: Iterate over the list of return values, wrap them up, return them.
+			return null;
 		}
 		
-		public Parrot_PMC FindMethod(string name)
-		{
-			return this.Parrot.PmcNull;
-		}
-		
-		[DllImport("parrot")]
-		private static extern int Parrot_api_pmc_find_method(IntPtr interp_pmc, IntPtr pmc_obj, IntPtr ps_name, out IntPtr method);
-		
-		//TODO add a better way to modify the signature
-		public void InvokeMethod(Parrot_String name, Pmc.CallContext signature)
+		public Parrot_PMC FindMethod(Parrot_String name)
 		{
 			IntPtr sub_ptr;
 			int result = Parrot_api_pmc_find_method(this.Parrot.RawPointer, this.RawPointer, name.RawPointer, out sub_ptr);
-			if (result != 1) {
-					this.Parrot.GetErrorResult();
-			}
-			else {
-				result = Parrot_api_pmc_invoke(this.Parrot.RawPointer, sub_ptr, signature.RawPointer);
-				if (result != 1)
-					this.Parrot.GetErrorResult();
-			}
+			if (result != 1)
+				this.Parrot.GetErrorResult();
+			return new Pmc.Sub(this.RawPointer, sub_ptr);
+		}
+		
+		public IParrot_PMC[] InvokeMethod(Parrot_String name, Pmc.CallContext signature)
+		{
+			Pmc.Sub sub = this.FindMethod(name);
+			return sub.Invoke(signature);
 		}
 		
 		#endregion

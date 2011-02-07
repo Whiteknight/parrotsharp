@@ -48,17 +48,7 @@ namespace ParrotSharp.Pmc
 			if (result != 1)
 				this.Parrot.GetErrorResult();
 			return pmc_ptr;
-		}		
-		
-		public Parrot_PMC Instantiate()
-		{
-			return new Parrot_PMC(this.Parrot, this.InstantiatePointer(this.Parrot.PmcNull));
-		}
-		
-		public Parrot_PMC Instantiate(IParrot_PMC init)
-		{
-			return new Parrot_PMC(this.Parrot, this.InstantiatePointer(init));
-		}		
+		}			
 		
 		#endregion
 		
