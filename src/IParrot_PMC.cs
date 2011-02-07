@@ -5,8 +5,8 @@ namespace ParrotSharp
 	{
 		Parrot Parrot { get; }
 		IntPtr RawPointer { get; }
-		Parrot_PMC FindMethod(string name);
-		void InvokeMethod(Parrot_String name, Pmc.CallContext signature);
+		IParrot_PMC FindMethod(Parrot_String name);
+		IParrot_PMC[] InvokeMethod(Parrot_String name, IParrot_PMC signature);
 	}
 }
 

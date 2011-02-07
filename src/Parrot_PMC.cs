@@ -76,7 +76,7 @@ namespace ParrotSharp
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_find_method(IntPtr interp_pmc, IntPtr pmc_obj, IntPtr ps_name, out IntPtr method);
 		
-		protected IParrot_PMC[] Invoke(Parrot_PMC signature)
+		protected IParrot_PMC[] Invoke(IParrot_PMC signature)
 		{
 			int result = Parrot_api_pmc_invoke(this.Parrot.RawPointer, this.RawPointer, signature.RawPointer);
 			if (result != 1)
@@ -85,18 +85,18 @@ namespace ParrotSharp
 			return null;
 		}
 		
-		public Parrot_PMC FindMethod(Parrot_String name)
+		public IParrot_PMC FindMethod(Parrot_String name)
 		{
 			IntPtr sub_ptr;
 			int result = Parrot_api_pmc_find_method(this.Parrot.RawPointer, this.RawPointer, name.RawPointer, out sub_ptr);
 			if (result != 1)
 				this.Parrot.GetErrorResult();
-			return new Pmc.Sub(this.RawPointer, sub_ptr);
+			return new Pmc.Sub(this.Parrot, sub_ptr);
 		}
 		
-		public IParrot_PMC[] InvokeMethod(Parrot_String name, Pmc.CallContext signature)
+		public IParrot_PMC[] InvokeMethod(Parrot_String name, IParrot_PMC signature)
 		{
-			Pmc.Sub sub = this.FindMethod(name);
+			Pmc.Sub sub = this.FindMethod(name) as Pmc.Sub;
 			return sub.Invoke(signature);
 		}
 		
