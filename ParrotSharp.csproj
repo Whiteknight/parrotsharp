@@ -56,6 +56,7 @@
     <Compile Include="src\Pmc\IPMCRole_Integer.cs" />
     <Compile Include="src\Pmc\IPMCRole_Hash.cs" />
     <Compile Include="src\Pmc\IPMCRole_Array.cs" />
+    <Compile Include="src\Pmc\IPMCRole_String.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

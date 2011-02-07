@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ParrotSharp.Pmc
 {
 	// String PMC type (Not Parrot_String)
-	public class String : Parrot_PMC, IParrot_PMC
+	public class String : Parrot_PMC, IParrot_PMC, IPMCRole_String
 	{
 		#region Constructor
 		
@@ -37,21 +37,45 @@ namespace ParrotSharp.Pmc
 		
 		#endregion
 		
-		#region Parse To Integer
+		#region Parrot String PMC Methods
 		
-		public IParrot_PMC ToIntegerPMC(int int_base)
+		public Integer ToIntegerPMC(int int_base)
 		{
 			CallContext cc = CallContext.GetFactory(this.Parrot).Instance();
-			cc[0] = this;
-			cc[1] = int_base.ToParrotIntegerPMC(this.Parrot);
-			cc.Signature = "PiI->P".ToParrotString(this.Parrot);
-			// TODO: get the method
-			// TODO: Invoke it
-			// TODO: get the returns
-			return null;
-		}		
+			cc.StringValue = "PiI->P";
+			cc.AddArgument(this);
+			cc.AddArgument(int_base.ToParrotIntegerPMC(this.Parrot));
+			this.InvokeMethod("to_int".ToParrotString(this.Parrot), cc);
+			return Integer.GetFactory(this.Parrot).Cast(cc[0]);
+		}
+		
+		public void Replace(string old_s, string new_s)
+		{
+			CallContext cc = CallContext.GetFactory(this.Parrot).Instance();
+			cc.StringValue = "PiSS->";
+			cc.AddArgument(this);
+			cc.AddArgument(old_s.ToParrotStringPMC(this.Parrot));
+			cc.AddArgument(new_s.ToParrotStringPMC(this.Parrot));
+			this.InvokeMethod("replace".ToParrotString(this.Parrot), cc);
+		}
 		
 		#endregion
+		
+		#region IPMCRole_String
+		
+		public new Parrot_String ParrotStringValue
+		{
+			get { return base.ParrotStringValue; }
+			set { base.ParrotStringValue = value; }
+		}
+		
+		public string StringValue
+		{
+			get { return base.ParrotStringValue.ToString(); }
+			set { base.ParrotStringValue = value.ToParrotString(this.Parrot); }
+		}		
+		
+		#endregion 
 	}
 }
 

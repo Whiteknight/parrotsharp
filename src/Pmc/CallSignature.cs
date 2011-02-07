@@ -2,7 +2,8 @@ using System;
 
 namespace ParrotSharp.Pmc
 {
-	public class CallContext : Parrot_PMC, IParrot_PMC, IPMCRole_Hash, IPMCRole_Array
+	public class CallContext : Parrot_PMC, IParrot_PMC,
+		IPMCRole_Hash, IPMCRole_Array, IPMCRole_String
 	{
 		#region Private Fields
 		
@@ -25,7 +26,7 @@ namespace ParrotSharp.Pmc
 		
 		#endregion
 		
-		#region Get/Set Parameters
+		#region Get/Set Parameters IPMCRole_Array and IPMCRole_Hash
 
 		public new IParrot_PMC this[int key]
 		{
@@ -53,12 +54,18 @@ namespace ParrotSharp.Pmc
 		
 		#endregion
 		
-		#region Signature String
+		#region IPMCRole_String
 
-		public Parrot_String Signature
+		public new Parrot_String ParrotStringValue
 		{
-			get { return ParrotStringValue; }
-			set { ParrotStringValue = value; }
+			get { return base.ParrotStringValue; }
+			set { base.ParrotStringValue = value; }
+		}
+		
+		public string StringValue
+		{
+			get { return base.ParrotStringValue.ToString(); }
+			set { base.ParrotStringValue = value.ToParrotString(this.Parrot); }
 		}
 		
 		#endregion

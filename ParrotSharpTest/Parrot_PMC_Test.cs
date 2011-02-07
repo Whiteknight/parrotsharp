@@ -1,7 +1,7 @@
+using System;
 using NUnit.Framework;
 using ParrotSharp;
 using ParrotSharp.Pmc;
-using System;
 
 namespace ParrotSharpTest
 {
@@ -15,7 +15,7 @@ namespace ParrotSharpTest
 			IParrot_PMC pmc_string = "This is a parrot string".ToParrotStringPMC(TestManager.Interp);
 			IPMCFactory<CallContext> sign_factory = CallContext.GetFactory(TestManager.Interp);
 			CallContext sign = sign_factory.Instance();
-			sign.Signature = "PiSS->".ToParrotString(TestManager.Interp);
+			sign.StringValue = "PiSS->";
 			sign.AddArgument(pmc_string);
 			sign.AddArgument("string".ToParrotStringPMC(TestManager.Interp));
 			sign.AddArgument("pmc".ToParrotStringPMC(TestManager.Interp));
@@ -31,7 +31,7 @@ namespace ParrotSharpTest
 			IParrot_PMC pmc_string = "This is a parrot string".ToParrotStringPMC(TestManager.Interp);
 			IPMCFactory<CallContext> sign_factory = CallContext.GetFactory(TestManager.Interp);
 			CallContext sign = sign_factory.Instance();
-			sign.Signature = "Pi->".ToParrotString(TestManager.Interp);
+			sign.StringValue = "Pi->";
 			pmc_string.InvokeMethod("unexisting_method".ToParrotString(TestManager.Interp), sign);
 		}		
 	}	
