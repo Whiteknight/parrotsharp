@@ -11,12 +11,14 @@ namespace ParrotSharp
         private string msg;
 		private string backtrace;
 
-        public ParrotException(Parrot parrot, string msg) {
+        public ParrotException(Parrot parrot, string msg)
+		{
             this.msg = msg;
 			this.Parrot = parrot;
         }
 
-        public ParrotException(Parrot parrot, Parrot_PMC exception) {
+        public ParrotException(Parrot parrot, Parrot_PMC exception)
+		{
             this.raw_exception = exception;
 			this.msg = exception.ToString();
 			this.Parrot = parrot;

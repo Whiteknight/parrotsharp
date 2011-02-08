@@ -59,6 +59,9 @@
     <Compile Include="src\Pmc\IPMCRole_String.cs" />
     <Compile Include="src\Pmc\Sub.cs" />
     <Compile Include="src\Pmc\IPMCRole_Invocable.cs" />
+    <Compile Include="src\Pmc\Interpreter.cs" />
+    <Compile Include="src\Pmc\Null.cs" />
+    <Compile Include="src\Pmc\Exception.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

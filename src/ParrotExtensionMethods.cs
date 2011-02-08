@@ -22,7 +22,7 @@ namespace ParrotSharp
 			int result = Parrot_api_pmc_wrap_string_array(parrot.RawPointer, args.Length, argv, out pmc);
 			if (result != 1)
 				parrot.GetErrorResult();
-			return new Parrot_PMC(parrot, pmc);
+			return new Pmc.String(parrot, pmc);
 		}
 		
 		#endregion

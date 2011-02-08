@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace ParrotSharp
 {
-    public class Parrot_PMC : ParrotPointer, IParrot_PMC
+    public abstract class Parrot_PMC : ParrotPointer, IParrot_PMC
 	{
 		#region Constructor
 		

@@ -8,7 +8,7 @@ namespace ParrotSharp
     {
 		#region Private Fields
 		
-        private Parrot_PMC Interp;
+        private IParrot_PMC Interp;
 		
 		#endregion
 
@@ -41,7 +41,7 @@ namespace ParrotSharp
             int result = Parrot_api_make_interpreter(raw_parent, 0, IntPtr.Zero, out interp_raw);
             if (result != 1)
                 this.GetErrorResult();
-            this.Interp = new Parrot_PMC(this, interp_raw);
+            this.Interp = new Pmc.Interpreter(this, interp_raw);
 			if (!String.IsNullOrEmpty(exename))
 				this.SetExecutableName(exename);
 		}
@@ -64,9 +64,9 @@ namespace ParrotSharp
 		[DllImport("parrot")]
 		private static extern int Parrot_api_pmc_null(IntPtr interp, out IntPtr pmcnull);
 		
-		private Parrot_PMC pmcnull;
+		private IParrot_PMC pmcnull;
 		
-		public Parrot_PMC PmcNull
+		public IParrot_PMC PmcNull
 		{
 			get {
 				if (this.pmcnull != null)
@@ -75,7 +75,7 @@ namespace ParrotSharp
 				int result = Parrot_api_pmc_null(this.RawPointer, out pmcnull_raw);
 				if (result != 1)
 					this.GetErrorResult();
-				this.pmcnull = new Parrot_PMC(this, pmcnull_raw);
+				this.pmcnull = new Pmc.Null(this, pmcnull_raw);
 				return this.pmcnull;
 			}
 		}		
@@ -99,7 +99,7 @@ namespace ParrotSharp
                 out is_error, out exception_raw, out exit_code, out errmsg_raw);
             if (result == 0)
                 throw new ParrotException(this, "Catastrophic failure. Could not get result.");
-            Parrot_PMC exception = new Parrot_PMC(this, exception_raw);
+            IParrot_PMC exception = new Pmc.Exception(this, exception_raw);
             throw new ParrotException(this, exception);
 		}
 
