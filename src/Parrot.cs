@@ -115,13 +115,13 @@ namespace ParrotSharp
 		[DllImport("parrot", CharSet=CharSet.Ansi)]
 		private static extern int Parrot_api_load_bytecode_file(IntPtr interp, string filename, out IntPtr pbc);
 		
-		public Parrot_PMC LoadBytecodeFile(string filename)
+		public IParrot_PMC LoadBytecodeFile(string filename)
 		{
 			IntPtr pbc = IntPtr.Zero;
 			int result = Parrot_api_load_bytecode_file(this.RawPointer, filename, out pbc);
 			if (result != 1)
 				this.GetErrorResult();
-			return new Parrot_PMC(this, pbc);
+			return new Pmc.PackFile(this, pbc);
 		}		
 		
 		[DllImport("parrot")]

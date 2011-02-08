@@ -6,10 +6,16 @@ namespace ParrotSharp
 {
     public class ParrotException : Exception
 	{
+		#region Private Fields
+		
 		private Parrot Parrot;
-        private Parrot_PMC raw_exception;
+        private IParrot_PMC raw_exception;
         private string msg;
 		private string backtrace;
+		
+		#endregion
+		
+		#region Constructor
 
         public ParrotException(Parrot parrot, string msg)
 		{
@@ -17,7 +23,7 @@ namespace ParrotSharp
 			this.Parrot = parrot;
         }
 
-        public ParrotException(Parrot parrot, Parrot_PMC exception)
+        public ParrotException(Parrot parrot, IParrot_PMC exception)
 		{
             this.raw_exception = exception;
 			this.msg = exception.ToString();
@@ -25,11 +31,16 @@ namespace ParrotSharp
 			// TODO: Verify that this is an exception PMC
         }
 
-        public ParrotException(Parrot parrot, Parrot_String msg) {
+        public ParrotException(Parrot parrot, Parrot_String msg)
+		{
 			this.msg = msg.ToString();
 			this.Parrot = parrot;
             // TODO: Capture the current C# backtrace
         }
+		
+		#endregion
+		
+		#region Exception
 
 		public override string Message { get { return this.msg; } }
 
@@ -60,5 +71,7 @@ namespace ParrotSharp
 				return this.backtrace;
 			}
 		}
+		
+		#endregion
     }
 }

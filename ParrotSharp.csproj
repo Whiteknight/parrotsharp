@@ -62,6 +62,7 @@
     <Compile Include="src\Pmc\Interpreter.cs" />
     <Compile Include="src\Pmc\Null.cs" />
     <Compile Include="src\Pmc\Exception.cs" />
+    <Compile Include="src\Pmc\PackFile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
