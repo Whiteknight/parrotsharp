@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParrotSharp", "ParrotSharp.csproj", "{AAED9261-C134-4905-88E6-197FBEA661F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParrotSharpTest", "ParrotSharpTest\ParrotSharpTest.csproj", "{F90A2E1A-B062-4BFC-B4FF-7E09A2CB73F0}"

@@ -30,19 +30,19 @@ namespace ParrotSharp.Pmc
 
 		public new IParrot_PMC this[int key]
 		{
-			get { return new Parrot_PMC(this.Parrot, base[key]); }
+			get { return new Generic(this.Parrot, base[key]); }
 			set { base[key] = value.RawPointer; }
 		}
 
 		public new IParrot_PMC this[string key]
 		{
-			get { return new Parrot_PMC(this.Parrot, base[key]); }
+			get { return new Generic(this.Parrot, base[key]); }
 			set { base[key] = value.RawPointer; }
 		}
 
 		public new IParrot_PMC this[Parrot_String key]
 		{
-			get { return new Parrot_PMC(this.Parrot, base[key]); }
+			get { return new Generic(this.Parrot, base[key]); }
 			set { base[key] = value.RawPointer; }
         }
 		
